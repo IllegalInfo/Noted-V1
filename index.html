@@ -12,6 +12,16 @@
   <header class="topbar">
     <h1>Noted.</h1>
     <div class="buttons-menu">
+      <div class="sections-menu">
+        <button class="sections-button">Section: Business</button>
+        <div class="sections-card">
+          <p>Choose a section</p>
+          <button class="section-option selected">Business</button>
+          <button class="section-option">Self</button>
+          <button class="section-option">Job</button>
+          <button class="create-section">+ Create Section</button>
+        </div>
+      </div>
       <button class="add-note">Add Note</button>
       <button class="clear-all-notes">Clear Notes</button>
     </div>
@@ -25,6 +35,18 @@
     <div class="text-boxes"></div>
     <footer class="footer">Noted App</footer>
   </main>
+
+  <div class="overlay">
+    <div class="overlay-box">
+      <h2>New Section</h2>
+      <input class="section-name" type="text" placeholder="Enter section name">
+      <div class="overlay-buttons">
+        <button class="save-section">Create</button>
+        <button class="cancel-section">Cancel</button>
+      </div>
+    </div>
+  </div>
+
 
   <script src="script.js"></script>
 </body>

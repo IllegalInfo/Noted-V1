@@ -1,15 +1,20 @@
 let addNoteButton = document.querySelector(".add-note");
 let card = document.querySelector(".card");
 let textBoxes = document.querySelector(".text-boxes");
+let sectionsButton = document.querySelector(".sections-button");
+let sectionsCard = document.querySelector(".sections-card");
+let sectionOptions = document.querySelectorAll(".section-option");
 
 
 let noteCount = 0;
+let currentSection = "Business";
 
 function addNote() {
   noteCount = noteCount +1;
 
   let noteRow = document.createElement("div");
   noteRow.className = "note-row";
+  noteRow.dataset.section = currentSection;
 
   let note = document.createElement("button");
   note.className = "note-button";
@@ -70,4 +75,94 @@ function clearAllNotes() {
 
 let clearAllNotesButton = document.querySelector(".clear-all-notes");
 clearAllNotesButton.addEventListener("click", clearAllNotes);
+
+
+function showSectionNotes() {
+  let allNoteRows = document.querySelectorAll(".note-row");
+
+  hideAllTextBoxes();
+
+  for (let i = 0; i < allNoteRows.length; i++) {
+    if (allNoteRows[i].dataset.section === currentSection) {
+      allNoteRows[i].style.display = "";
+    } else {
+      allNoteRows[i].style.display = "none";
+    }
+  }
+}
+
+sectionsButton.addEventListener("click", function () {
+  sectionsCard.classList.toggle("open");
+});
+
+function selectSection(option) {
+  let allOptions = document.querySelectorAll(".section-option");
+
+  for (let i = 0; i < allOptions.length; i++) {
+    allOptions[i].classList.remove("selected");
+  }
+  option.classList.add("selected");
+  currentSection = option.textContent;
+  sectionsButton.textContent = "Section: " + currentSection;
+  sectionsCard.classList.remove("open");
+  showSectionNotes();
+}
+
+for (let i = 0; i < sectionOptions.length; i++) {
+  sectionOptions[i].addEventListener("click", function () {
+    selectSection(sectionOptions[i]);
+  });
+}
+
+document.addEventListener("click", function (event) {
+  if (!sectionsButton.contains(event.target) && !sectionsCard.contains(event.target)) {
+    sectionsCard.classList.remove("open");
+  }
+});
+
+let createSectionButton = document.querySelector(".create-section");
+let overlay = document.querySelector(".overlay");
+let sectionNameInput = document.querySelector(".section-name");
+let cancelSectionButton = document.querySelector(".cancel-section");
+let saveSectionButton = document.querySelector(".save-section");
+
+function closeOverlay() {
+  overlay.classList.remove("open");
+  sectionNameInput.value = "";
+}
+
+createSectionButton.addEventListener("click", function () {
+  sectionsCard.classList.remove("open");
+  overlay.classList.add("open");
+  sectionNameInput.focus();
+});
+
+cancelSectionButton.addEventListener("click", closeOverlay);
+
+overlay.addEventListener("click", function (event) {
+  if (event.target === overlay) {
+    closeOverlay();
+  }
+});
+
+saveSectionButton.addEventListener("click", function () {
+  let name = sectionNameInput.value.trim();
+
+  if (name === "") {
+    return;
+  }
+
+  let newOption = document.createElement("button");
+  newOption.className = "section-option";
+  newOption.textContent = name;
+
+  newOption.addEventListener("click", function () {
+    selectSection(newOption);
+  });
+
+  sectionsCard.insertBefore(newOption, createSectionButton);
+  selectSection(newOption);
+  closeOverlay();
+});
+
 
