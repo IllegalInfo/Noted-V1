@@ -33,6 +33,38 @@ function addNote() {
     textBox.hidden = false;
   });
 
+  note.addEventListener("dblclick", function () {
+    let input = document.createElement("input");
+    input.className = "Rename";
+    input.value = note.textContent;
+
+    noteRow.replaceChild(input, note);
+    input.focus();
+    input.select();
+
+    input.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        input.blur();
+      }
+
+      if (event.key === "Escape") {
+        input.value = note.textContent;
+        input.blur();
+      }
+
+    });
+
+    input.addEventListener("blur", function () {
+      let newName = input.value.trim();
+
+      if (newName !== "") {
+        note.textContent = newName;
+      }
+
+      noteRow.replaceChild(note, input);
+    });
+  });
+
   xButton.addEventListener("click", function () {
     card.removeChild(noteRow);
     textBoxes.removeChild(textBox);

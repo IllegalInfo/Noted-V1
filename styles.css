@@ -301,3 +301,16 @@ h1 {
   background-color: #262c36;
   color: #e4e7eb;
 }
+
+.rename-input {
+  flex-grow: 1;
+  min-width: 0;
+  padding: 9px 11px;
+  border: 1px solid #3a4250;
+  border-radius: 6px;
+  background-color: #0e1013;
+  color: #e4e7eb;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+}
