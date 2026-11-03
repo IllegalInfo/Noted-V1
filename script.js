@@ -7,7 +7,7 @@ let sectionOptions = document.querySelectorAll(".section-option");
 
 
 let noteCount = 0;
-let currentSection = "Business";
+let currentSection = "Default";
 
 function addNote() {
   noteCount = noteCount +1;
