@@ -26,16 +26,18 @@ function addNote() {
 
   let textBox = document.createElement("textarea");
   textBox.className = "text-box";
+  textBox.placeholder = "Start typing...";
   textBox.hidden = true;
 
   note.addEventListener("click", function () {
     hideAllTextBoxes();
     textBox.hidden = false;
+    noteRow.classList.add("active");
   });
 
   note.addEventListener("dblclick", function () {
     let input = document.createElement("input");
-    input.className = "Rename";
+    input.className = "rename-input";
     input.value = note.textContent;
 
     noteRow.replaceChild(input, note);
@@ -78,9 +80,14 @@ function addNote() {
 
 function hideAllTextBoxes() {
   let allTextBoxes = document.querySelectorAll(".text-box");
+  let allNoteRows = document.querySelectorAll(".note-row");
 
   for (let i = 0; i < allTextBoxes.length; i++) {
     allTextBoxes[i].hidden = true;
+  }
+
+  for (let i = 0; i < allNoteRows.length; i++) {
+    allNoteRows[i].classList.remove("active");
   }
 }
 
