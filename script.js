@@ -4,6 +4,7 @@ let textBoxes = document.querySelector(".text-boxes");
 let sectionsButton = document.querySelector(".sections-button");
 let sectionsCard = document.querySelector(".sections-card");
 let sectionOptions = document.querySelectorAll(".section-option");
+let wordCount = document.querySelector(".word-count");
 
 
 let noteCount = 0;
@@ -33,6 +34,11 @@ function addNote() {
     hideAllTextBoxes();
     textBox.hidden = false;
     noteRow.classList.add("active");
+    updateWordCount(textBox);
+  });
+
+  textBox.addEventListener("input", function () {
+    updateWordCount(textBox);
   });
 
   note.addEventListener("dblclick", function () {
@@ -68,6 +74,9 @@ function addNote() {
   });
 
   xButton.addEventListener("click", function () {
+    if (noteRow.classList.contains("active")) {
+      wordCount.textContent = "";
+    }
     card.removeChild(noteRow);
     textBoxes.removeChild(textBox);
   });
@@ -89,6 +98,31 @@ function hideAllTextBoxes() {
   for (let i = 0; i < allNoteRows.length; i++) {
     allNoteRows[i].classList.remove("active");
   }
+
+  wordCount.textContent = "";
+}
+
+function updateWordCount(textBox) {
+  let text = textBox.value.trim();
+  let count = 0;
+
+  if (text !== "") {
+    count = text.split(/\s+/).length;
+  }
+
+  let letters = textBox.value.length;
+  let wordText = count + " words";
+  let letterText = letters + " characters";
+
+  if (count === 1) {
+    wordText = "1 word";
+  }
+
+  if (letters === 1) {
+    letterText = "1 character";
+  }
+
+  wordCount.textContent = wordText + " · " + letterText;
 }
 
 addNoteButton.addEventListener("click", addNote);
@@ -109,6 +143,7 @@ function clearAllNotes() {
     textBoxes.removeChild(allTextBoxes[i]);
   }
 
+  wordCount.textContent = "";
   noteCount = 0;
 }
 
