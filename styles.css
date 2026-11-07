@@ -360,3 +360,19 @@ h1 span {
   font-size: 14px;
   outline: none;
 }
+
+.search-notes {
+  flex-shrink: 0;
+  padding: 8px 12px;
+  border: 1px solid #262b33;
+  border-radius: 8px;
+  background-color: #0e1013;
+  color: #e4e7eb;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+}
+
+.search-notes:focus {
+  border-color: #3a4250;
+}

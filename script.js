@@ -5,6 +5,8 @@ let sectionsButton = document.querySelector(".sections-button");
 let sectionsCard = document.querySelector(".sections-card");
 let sectionOptions = document.querySelectorAll(".section-option");
 let wordCount = document.querySelector(".word-count");
+let searchInput = document.querySelector(".search-notes");
+let emptyMessage = document.querySelector(".empty-message");
 
 
 let noteCount = 0;
@@ -33,6 +35,7 @@ function addNote() {
   note.addEventListener("click", function () {
     hideAllTextBoxes();
     textBox.hidden = false;
+    emptyMessage.hidden = true;
     noteRow.classList.add("active");
     updateWordCount(textBox);
   });
@@ -179,6 +182,7 @@ function selectSection(option) {
   currentSection = option.textContent;
   sectionsButton.textContent = "Section: " + currentSection;
   sectionsCard.classList.remove("open");
+  searchInput.value = "";
   showSectionNotes();
 }
 
@@ -238,5 +242,23 @@ saveSectionButton.addEventListener("click", function () {
   selectSection(newOption);
   closeOverlay();
 });
+
+function searchNotes() {
+  let searchText = searchInput.value.trim().toLowerCase();
+  let allNoteRows = document.querySelectorAll(".note-row");
+
+  for (let i = 0; i < allNoteRows.length; i++) {
+    let name = allNoteRows[i].querySelector(".note-button").textContent.toLowerCase();
+    let inSection = allNoteRows[i].dataset.section === currentSection;
+
+    if (inSection && name.includes(searchText)) {
+      allNoteRows[i].style.display = "";
+    } else {
+      allNoteRows[i].style.display = "none";
+    }
+  }
+}
+
+searchInput.addEventListener("input", searchNotes);
 
 

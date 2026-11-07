@@ -16,6 +16,7 @@
         <button class="sections-button">Section: Default</button>
         <div class="sections-card">
           <p>Choose a section</p>
+           <button class="section-option selected">Default</button>
           <button class="create-section">+ Create Section</button>
         </div>
       </div>
@@ -27,10 +28,13 @@
   <main class="page">
     <div class="card">
       <button class="plus-button"><strong>+</strong></button>
+      <input class="search-notes" type="text" placeholder="Search notes...">
     </div>
 
     <div class="editor">
-      <div class="text-boxes"></div>
+      <div class="text-boxes">
+        <p class="empty-message">Select a note or create a new one</p>
+      </div>
       <p class="word-count"></p>
     </div>
   </main>
